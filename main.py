@@ -1,6 +1,6 @@
 import cv2
 import argparse
-
+import numpy as np
 class Webcam:
     def __init__(self, ip, codec):
         self.ip = ip
@@ -12,7 +12,7 @@ class Webcam:
         self.cam_width = self.cam.get(cv2.CAP_PROP_FRAME_WIDTH)
         self.cam_height = self.cam.get(cv2.CAP_PROP_FRAME_HEIGHT)
         self.fps = self.cam.get(cv2.CAP_PROP_FPS)
-
+        self.filter = None
 
 
     def switch_mode(self):
@@ -21,8 +21,13 @@ class Webcam:
         else:
             self.mode = 'webcam'
 
-    def save_video(self, save_path):
-        vid = cv2.VideoWriter(save_path, self.fourcc, 20.0, (640, 480))
+    def reset(self):
+        self.filter = None
+        print(f"Removed all filters")
+        
+    def set_filter(self, ft):
+        self.filter = ft
+        print(f"Currently applying {ft} filter")
 
 
 if __name__ == '__main__':
@@ -42,13 +47,28 @@ if __name__ == '__main__':
 
     while webcam.cam.isOpened():
         _, frame = webcam.cam.read()
+        if cv2.waitKey(1) == ord('b'):
+            webcam.set_filter('blur')
+        elif cv2.waitKey(1) == ord('f'):
+            webcam.set_filter('flip')
+        # Apply filter
+        if webcam.filter == 'blur':
+            frame = cv2.GaussianBlur(frame, (23,23), 0)
+        elif webcam.filter == 'flip':
+            frame = cv2.flip(frame, 1)
+        # cv2.imshow("Webcam", frame)
+        if cv2.waitKey(1) == ord('r'):
+            webcam.reset()
         # frame = cv2.resize(frame, (640, 480))
         cv2.imshow("Webcam", frame)
         if webcam.mode == 'record':
             vid.write(frame)
+        
         if cv2.waitKey(1) & 0xFF == 32:
             webcam.switch_mode()
             print(f"Switched to mode: {webcam.mode}")
+            if webcam.mode != 'record':
+                vid.release()
         elif cv2.waitKey(1) & 0xFF == 27: # press ESC
             break
 
