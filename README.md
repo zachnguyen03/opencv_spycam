@@ -4,7 +4,7 @@
 [[Project]](https://github.com/zachnguyen03/opencv_spycam)
 
 # OpenCV Spycam - Official Implementation
-This is the official code of our **"SCMIT: Style Consistent Multi-Domain Image-to-Image Translation"**, TBD, 2024
+This is the official code of the OpenCV Spycam mini-app
 
 ## **Requirements**
 -opencv-python>=4.9.0.80
@@ -27,5 +27,5 @@ This is the official code of our **"SCMIT: Style Consistent Multi-Domain Image-t
 
 ## **Features**
 1. Applying filter to VideoCapture - In progress
-
+2. 
 
