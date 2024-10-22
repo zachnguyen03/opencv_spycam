@@ -36,11 +36,11 @@ This is the official code of the OpenCV Spycam mini-app
 
 
 ## Screenshots
-1. Webcam interface  
+1. **Webcam interface**  
 ![webcam example](./assets/webcam.png)
 
-2. Command line notifications (switch modes, apply filters)  
+2. **Command line notifications (switch modes, apply filters)**  
 ![notifications](./assets/notis.png)
 
-3. Output video  
+3. **Output video**  
 ![video](./assets/out.gif)
